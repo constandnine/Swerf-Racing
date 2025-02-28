@@ -22,13 +22,130 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInput"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""Racing"",
+            ""id"": ""590ff9c1-f61b-43d6-bf73-7df2251ee166"",
+            ""actions"": [
+                {
+                    ""name"": ""Accelarator"",
+                    ""type"": ""Value"",
+                    ""id"": ""9680ccf3-25fe-4b15-954d-997ac7d93cc5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Barke"",
+                    ""type"": ""Value"",
+                    ""id"": ""b33ddde0-0b33-40f9-9f64-abf3fb3813e2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Steering"",
+                    ""type"": ""Value"",
+                    ""id"": ""2ca70ec7-04d1-4ae6-a760-9907f32ba079"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PowerDrift"",
+                    ""type"": ""Button"",
+                    ""id"": ""177b6eeb-43d2-4706-9947-a49191808ea5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""c2561b92-2342-4b8a-9afa-ff69affdd326"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b0ef16fa-c057-4d6e-b698-c0cae93c778a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelarator"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8256fb86-8bdb-4aec-9a65-ece7dfdb99cb"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Barke"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""acc43ff0-8ebc-4b19-bac7-2b8f902952b7"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5e6177c-846a-4532-a5e8-be4652b9ed65"",
+                    ""path"": ""<XInputController>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PowerDrift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""92ff1f83-0753-49ff-a764-b2c2747713f0"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+        // Racing
+        m_Racing = asset.FindActionMap("Racing", throwIfNotFound: true);
+        m_Racing_Accelarator = m_Racing.FindAction("Accelarator", throwIfNotFound: true);
+        m_Racing_Barke = m_Racing.FindAction("Barke", throwIfNotFound: true);
+        m_Racing_Steering = m_Racing.FindAction("Steering", throwIfNotFound: true);
+        m_Racing_PowerDrift = m_Racing.FindAction("PowerDrift", throwIfNotFound: true);
+        m_Racing_MoveCamera = m_Racing.FindAction("MoveCamera", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
+        UnityEngine.Debug.Assert(!m_Racing.enabled, "This will cause a leak and performance issues, PlayerInput.Racing.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -85,5 +202,91 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public int FindBinding(InputBinding bindingMask, out InputAction action)
     {
         return asset.FindBinding(bindingMask, out action);
+    }
+
+    // Racing
+    private readonly InputActionMap m_Racing;
+    private List<IRacingActions> m_RacingActionsCallbackInterfaces = new List<IRacingActions>();
+    private readonly InputAction m_Racing_Accelarator;
+    private readonly InputAction m_Racing_Barke;
+    private readonly InputAction m_Racing_Steering;
+    private readonly InputAction m_Racing_PowerDrift;
+    private readonly InputAction m_Racing_MoveCamera;
+    public struct RacingActions
+    {
+        private @PlayerInput m_Wrapper;
+        public RacingActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Accelarator => m_Wrapper.m_Racing_Accelarator;
+        public InputAction @Barke => m_Wrapper.m_Racing_Barke;
+        public InputAction @Steering => m_Wrapper.m_Racing_Steering;
+        public InputAction @PowerDrift => m_Wrapper.m_Racing_PowerDrift;
+        public InputAction @MoveCamera => m_Wrapper.m_Racing_MoveCamera;
+        public InputActionMap Get() { return m_Wrapper.m_Racing; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(RacingActions set) { return set.Get(); }
+        public void AddCallbacks(IRacingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RacingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RacingActionsCallbackInterfaces.Add(instance);
+            @Accelarator.started += instance.OnAccelarator;
+            @Accelarator.performed += instance.OnAccelarator;
+            @Accelarator.canceled += instance.OnAccelarator;
+            @Barke.started += instance.OnBarke;
+            @Barke.performed += instance.OnBarke;
+            @Barke.canceled += instance.OnBarke;
+            @Steering.started += instance.OnSteering;
+            @Steering.performed += instance.OnSteering;
+            @Steering.canceled += instance.OnSteering;
+            @PowerDrift.started += instance.OnPowerDrift;
+            @PowerDrift.performed += instance.OnPowerDrift;
+            @PowerDrift.canceled += instance.OnPowerDrift;
+            @MoveCamera.started += instance.OnMoveCamera;
+            @MoveCamera.performed += instance.OnMoveCamera;
+            @MoveCamera.canceled += instance.OnMoveCamera;
+        }
+
+        private void UnregisterCallbacks(IRacingActions instance)
+        {
+            @Accelarator.started -= instance.OnAccelarator;
+            @Accelarator.performed -= instance.OnAccelarator;
+            @Accelarator.canceled -= instance.OnAccelarator;
+            @Barke.started -= instance.OnBarke;
+            @Barke.performed -= instance.OnBarke;
+            @Barke.canceled -= instance.OnBarke;
+            @Steering.started -= instance.OnSteering;
+            @Steering.performed -= instance.OnSteering;
+            @Steering.canceled -= instance.OnSteering;
+            @PowerDrift.started -= instance.OnPowerDrift;
+            @PowerDrift.performed -= instance.OnPowerDrift;
+            @PowerDrift.canceled -= instance.OnPowerDrift;
+            @MoveCamera.started -= instance.OnMoveCamera;
+            @MoveCamera.performed -= instance.OnMoveCamera;
+            @MoveCamera.canceled -= instance.OnMoveCamera;
+        }
+
+        public void RemoveCallbacks(IRacingActions instance)
+        {
+            if (m_Wrapper.m_RacingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IRacingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RacingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RacingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public RacingActions @Racing => new RacingActions(this);
+    public interface IRacingActions
+    {
+        void OnAccelarator(InputAction.CallbackContext context);
+        void OnBarke(InputAction.CallbackContext context);
+        void OnSteering(InputAction.CallbackContext context);
+        void OnPowerDrift(InputAction.CallbackContext context);
+        void OnMoveCamera(InputAction.CallbackContext context);
     }
 }
