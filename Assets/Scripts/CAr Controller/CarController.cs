@@ -29,6 +29,18 @@ public class CarController : MonoBehaviour
     private Rigidbody carRigidbody;
 
 
+    [Header("Drifting")]
+
+    [SerializeField] private float slide;
+
+    public float deafaltGrip;
+
+    public WheelFrictionCurve startGrip;
+    public WheelFrictionCurve rearGrip;
+
+    private bool drifting;
+
+
     [Header("Wheels")]
 
     [SerializeField] private WheelCollider[] frontWheelColliders; 
@@ -44,6 +56,16 @@ public class CarController : MonoBehaviour
 
 
         carRigidbody = GetComponent<Rigidbody>();
+
+
+        for (int i = 0; i < rearWheelColliders.Length; i++)
+        {
+            deafaltGrip = rearWheelColliders[i].sidewaysFriction.stiffness;
+
+            startGrip = rearWheelColliders[i].sidewaysFriction;
+            rearGrip = frontWheelColliders[i].sidewaysFriction;
+        }
+
     }
 
     private void OnEnable()
@@ -66,6 +88,7 @@ public class CarController : MonoBehaviour
         Acceleration();
         Brake();
         Steering();
+        Drift();
 
 
         UpdateWheels(frontWheelColliders, frontWheelTransforms);
@@ -88,6 +111,22 @@ public class CarController : MonoBehaviour
     public void CalculateSteeringValue(InputAction.CallbackContext context)
     {
         steeringValue = context.ReadValue<Vector2>().x;
+    }
+
+
+
+    public void OnHandbreak(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            drifting = true;
+        }
+
+
+        if (context.canceled)
+        {
+            drifting = false;
+        }
     }
 
 
@@ -122,6 +161,30 @@ public class CarController : MonoBehaviour
         for (int i = 0; i < frontWheelColliders.Length; i++)
         {
             frontWheelColliders[i].steerAngle = targetSteerAngle;
+        }
+    }
+
+
+    private void Drift()
+    {
+        if (drifting)
+        {
+            rearGrip.stiffness = deafaltGrip * slide;
+
+
+            for (int i = 0; i < rearWheelColliders.Length; i++)
+            {
+                rearWheelColliders[i].sidewaysFriction = rearGrip;
+            }
+        }
+
+
+        else
+        {
+            for (int i = 0; i < rearWheelColliders.Length; i++)
+            {
+                rearWheelColliders[i].sidewaysFriction = startGrip;
+            }
         }
     }
 
