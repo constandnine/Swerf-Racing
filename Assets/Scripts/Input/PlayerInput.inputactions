@@ -108,6 +108,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Radio",
+            "id": "c6e676de-0c3b-4f5c-bf31-073f01c93623",
+            "actions": [
+                {
+                    "name": "Next Station",
+                    "type": "Button",
+                    "id": "c361516d-af5b-443d-ac67-24f453fb27ca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Previus Station",
+                    "type": "Button",
+                    "id": "a4f97e66-ffff-475f-9627-dcdd426374ee",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3dc967d1-0d71-4da9-9b88-cbff5f00dd64",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next Station",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ad7a6df-1b3c-4cba-a5c0-925f20164980",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previus Station",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
