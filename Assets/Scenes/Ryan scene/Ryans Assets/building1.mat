@@ -26,7 +26,10 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _METALLICSPECGLOSSMAP
+<<<<<<< Updated upstream
   - _NORMALMAP
+=======
+>>>>>>> Stashed changes
   m_InvalidKeywords: []
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0

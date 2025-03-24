@@ -27,7 +27,10 @@ Material:
   m_ValidKeywords:
   - _EMISSION
   - _METALLICSPECGLOSSMAP
+<<<<<<< Updated upstream
   - _NORMALMAP
+=======
+>>>>>>> Stashed changes
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -69,7 +72,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+<<<<<<< Updated upstream
         m_Texture: {fileID: 2800000, guid: 434c182393e6f684abac1b3e4d78475b, type: 3}
+=======
+        m_Texture: {fileID: 2800000, guid: 231fa3f074ceed1448be59679ecef9fe, type: 3}
+>>>>>>> Stashed changes
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -131,6 +138,10 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+<<<<<<< Updated upstream
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+=======
+    - _EmissionColor: {r: 3.3962264, g: 0, b: 1.5036824, a: 1}
+>>>>>>> Stashed changes
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
