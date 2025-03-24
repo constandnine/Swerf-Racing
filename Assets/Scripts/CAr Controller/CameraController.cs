@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
 
     public void LateUpdate()
     {
-        //MoveCameraForward();
+        MoveCameraForward();
         RotateCamera();
     }
 

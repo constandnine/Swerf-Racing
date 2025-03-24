@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
+using TMPro;
+using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
@@ -48,6 +47,13 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private Transform[] frontWheelTransforms;
     [SerializeField] private Transform[] rearWheelTransforms;
+
+
+    [Header("UI")]
+
+    [SerializeField] private TMP_Text speedometerText;
+
+    [SerializeField] private Slider accelerationSlider;
 
 
     private void Awake()
@@ -99,6 +105,9 @@ public class CarController : MonoBehaviour
     public void CalculateAccelerationValue(InputAction.CallbackContext context)
     {
         accelerationValue = context.ReadValue<float>();
+
+
+        accelerationSlider.value = accelerationValue;
     }
 
 
@@ -201,10 +210,16 @@ public class CarController : MonoBehaviour
         {
             carRigidbody.velocity = carRigidbody.velocity.normalized * topSpeed;
         }
+
+
+        int displaySpeed = Mathf.Clamp(Mathf.RoundToInt(speedInKmph), 0, 999);
+
+
+        speedometerText.text = displaySpeed.ToString("000") + "/KMH";
     }
 
 
-    void UpdateWheels(WheelCollider[] colliders, Transform[] transforms)
+    private void UpdateWheels(WheelCollider[] colliders, Transform[] transforms)
     {
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -216,4 +231,11 @@ public class CarController : MonoBehaviour
             transforms[i].rotation = rotation;
         }
     }
+
+
+    private void CameraFOV()
+    {
+
+    }
+
 }
