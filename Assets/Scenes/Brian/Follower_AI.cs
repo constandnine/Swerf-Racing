@@ -103,7 +103,13 @@ public class Follower_AI : MonoBehaviour
         if (!mainCar) return;
 
         float distance = Vector3.Distance(car.transform.position, mainCar.transform.position);
-        int mainWaypointIndex = mainCar.GetComponent<Simpel_AI>().waypointIndex;
+
+        int mainWaypointIndex = waypointIndex;
+
+        if (mainCar)
+        {
+            mainWaypointIndex = mainCar.GetComponent<Follower_AI>().waypointIndex;
+        }
 
         if (distance > distanceThreshold)
         {
@@ -220,7 +226,7 @@ public class Follower_AI : MonoBehaviour
         }
 
         // Apply movement force
-        float moveForce = 7500f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
+        float moveForce = 25000f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
         rb.AddForce(transform.forward * moveForce, ForceMode.Force);
 
         // Smoothly rotate towards the direction
@@ -264,7 +270,7 @@ public class Follower_AI : MonoBehaviour
     #region Detect Obstacles
     Vector3 DetectObstacles()
     {
-        Vector3[] directions = { transform.right, -transform.right, (transform.right + transform.forward).normalized, (-transform.right + transform.forward).normalized };
+        Vector3[] directions = { transform.right, -transform.right};
 
         foreach (var direction in directions)
         {
