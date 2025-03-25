@@ -226,7 +226,7 @@ public class Follower_AI : MonoBehaviour
         }
 
         // Apply movement force
-        float moveForce = 25000f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
+        float moveForce = 10000f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
         rb.AddForce(transform.forward * moveForce, ForceMode.Force);
 
         // Smoothly rotate towards the direction

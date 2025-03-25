@@ -67,7 +67,7 @@ public class Simpel_AI : MonoBehaviour
         }
 
         // Move Forward
-        rb.AddForce(transform.forward * 30000f * moveInput * Time.fixedDeltaTime * rb.mass, ForceMode.Force);
+        rb.AddForce(transform.forward * 10000f * moveInput * Time.fixedDeltaTime * rb.mass, ForceMode.Force);
 
         // Rotate Towards Target
         if (direction != Vector3.zero)
@@ -76,7 +76,7 @@ public class Simpel_AI : MonoBehaviour
         }
 
         // Change Waypoint When Close
-        if (Vector3.Distance(transform.position, targetPosition) < 13f)
+        if (Vector3.Distance(transform.position, targetPosition) < 5f)
         {
             if (++waypointIndex == waitpoints.Length)        // Move to the next waypoint)
             {
