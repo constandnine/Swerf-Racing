@@ -5,73 +5,56 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("input")]
-
-    private PlayerInput playerInput;
-
-
     [Header("Camera Movement")]
 
     [SerializeField] private Transform target;
+    [SerializeField] private Transform car;
 
-    [SerializeField] private Vector3 offSetTarget;
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float minimalDistance;
+    [SerializeField] private float maximalDistance;
 
 
-    [Header("Camera Movement")]
+    [Header("Speed VFX")]
 
-    [SerializeField] private Transform rotateTarget;
-
-    [SerializeField] private float rotationSpeed;
-
-    private float rotationInput;
+    [SerializeField] private Camera Chasecamera;
 
 
-    private void Awake()
+    public void Update()
     {
-        playerInput = new PlayerInput();
+        MoveCamera();
+        SpeedEffect();
     }
 
 
-    private void OnEnable()
+    private void MoveCamera()
     {
-        playerInput.Enable();
+        if (Vector3.Distance(transform.position, car.position) >= minimalDistance)
+        {
+            transform.position = Vector3.Lerp(transform.position, car.position, Time.deltaTime * movementSpeed);
+        }
+
+
+        Vector3 offset = transform.position - car.position;
+
+        if (offset.magnitude > maximalDistance)
+        {
+            transform.position = car.position + offset.normalized * maximalDistance;
+        }
+
+
+        transform.position = target.position * (1 - movementSpeed) + transform.position * movementSpeed;
+
+
+        transform.LookAt(target.transform);
     }
 
 
-    private void OnDisable()
+    private void SpeedEffect()
     {
-        playerInput.Disable();
-    }
-
-
-    public void CalculateRotationInput(InputAction.CallbackContext context)
-    {
-        rotationInput = context.ReadValue<Vector2>().x;
-    }
-
-
-    public void LateUpdate()
-    {
-        MoveCameraForward();
-        RotateCamera();
-    }
-
-
-    private void MoveCameraForward()
-    {
-        Vector3 desiredDistanceToTarget = target.position + offSetTarget;
-
-
-        transform.position = Vector3.Lerp(transform.position, desiredDistanceToTarget,Time.deltaTime * movementSpeed);
-    }
-
-
-    private void RotateCamera()
-    {
-        float verticalRotation = rotationInput * rotationSpeed * Time.deltaTime;
-
-
-        rotateTarget.Rotate(0, verticalRotation, 0);
+        if (Chasecamera.fieldOfView > 60 && Chasecamera.fieldOfView < 80)
+        {
+            Chasecamera.fieldOfView += .5f;
+        }
     }
 }

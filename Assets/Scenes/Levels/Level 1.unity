@@ -122,6 +122,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &87484495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87484496}
+  m_Layer: 0
+  m_Name: Camera target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &87484496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87484495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.786, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7015993837242327817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &125320962
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,11 +407,11 @@ Transform:
   m_GameObject: {fileID: 226863369}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24517447, y: 0.0014580649, z: 0.000000009575159, w: 0.96947795}
-  m_LocalPosition: {x: -44.82, y: -20.25, z: 112.7}
+  m_LocalPosition: {x: -226.92001, y: -185.65247, z: 2298.308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1334759185}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 23.397, y: 0, z: 0}
 --- !u!114 &226863371
 MonoBehaviour:
@@ -406,16 +437,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226863369}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88ba58425f1df394b922f95d22e522e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  offSetTarget: {x: 0, y: 3, z: -7}
-  movementSpeed: 3
-  rotateTarget: {fileID: 1334759185}
-  rotationSpeed: 100
+  target: {fileID: 87484496}
+  car: {fileID: 87484496}
+  movementSpeed: 1
+  minimalDistance: 5
+  maximalDistance: 6
+  Chasecamera: {fileID: 226863375}
 --- !u!114 &226863373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,7 +715,7 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -1025,7 +1057,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1176387385}
-  m_Father: {fileID: 1334759185}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1580,7 +1612,7 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -1824,7 +1856,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -231.89955, y: -188.06647, z: 2303.2217}
-  m_LocalScale: {x: 3.3267107, y: 1, z: 5.869}
+  m_LocalScale: {x: 12.360061, y: 3.7154, z: 21.805683}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1867,39 +1899,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1334759184
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1334759185}
-  m_Layer: 0
-  m_Name: Camera rig
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1334759185
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334759184}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.86615, y: 22.624527, z: -117.03467}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 226863370}
-  - {fileID: 763249380}
-  m_Father: {fileID: 1260911964895525854}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1627501277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,7 +2080,7 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -2394,84 +2393,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847837874}
   m_CullTransparentMesh: 1
---- !u!1001 &1854968445
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3448592734614390005, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -237.65556
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -188.06647
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2291.0537
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5291287621575763295, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258447782952913269, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_Name
-      value: porsche unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258447782952913269, guid: abc5c778b5d46274683eafb33220e9ad,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: abc5c778b5d46274683eafb33220e9ad, type: 3}
 --- !u!1 &1921415843
 GameObject:
   m_ObjectHideFlags: 0
@@ -2646,7 +2567,7 @@ WheelCollider:
     spring: 35000
     damper: 4500
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -2733,7 +2654,6 @@ Transform:
   - {fileID: 7015993837242327817}
   - {fileID: 1753081364}
   - {fileID: 705702961}
-  - {fileID: 1334759185}
   - {fileID: 1921415844}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2996,6 +2916,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a4f97e66-ffff-475f-9627-dcdd426374ee
     m_ActionName: Radio/Previus Station[/XInputControllerWindows/dpad/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d25d8b3b-e420-42e6-b4bd-fa3bff613ca8
+    m_ActionName: UI/MoveLeft
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c6ae31d-98e7-405e-b083-a1094d7a4a03
+    m_ActionName: UI/MoveRIght
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 717fbbcc-8b60-4ac2-b63d-d49ddc5eca85
+    m_ActionName: UI/Back
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Racing
@@ -3390,7 +3322,8 @@ Transform:
   m_LocalPosition: {x: 0.054209437, y: 0, z: -0.05420932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 87484496}
   m_Father: {fileID: 1260911964895525854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &7015993837242327818
@@ -3599,4 +3532,5 @@ SceneRoots:
   - {fileID: 366102200}
   - {fileID: 1141329798}
   - {fileID: 1260911964895525854}
-  - {fileID: 1854968445}
+  - {fileID: 226863370}
+  - {fileID: 763249380}
