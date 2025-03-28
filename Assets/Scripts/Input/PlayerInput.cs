@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reverse"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2563bce-f5d6-4128-bc98-829e91a10744"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -126,6 +135,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MoveCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68204b67-0544-495d-8b4a-789e846b4e5e"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reverse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -257,6 +277,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Racing_Steering = m_Racing.FindAction("Steering", throwIfNotFound: true);
         m_Racing_PowerDrift = m_Racing.FindAction("PowerDrift", throwIfNotFound: true);
         m_Racing_MoveCamera = m_Racing.FindAction("MoveCamera", throwIfNotFound: true);
+        m_Racing_Reverse = m_Racing.FindAction("Reverse", throwIfNotFound: true);
         // Radio
         m_Radio = asset.FindActionMap("Radio", throwIfNotFound: true);
         m_Radio_NextStation = m_Radio.FindAction("Next Station", throwIfNotFound: true);
@@ -339,6 +360,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Racing_Steering;
     private readonly InputAction m_Racing_PowerDrift;
     private readonly InputAction m_Racing_MoveCamera;
+    private readonly InputAction m_Racing_Reverse;
     public struct RacingActions
     {
         private @PlayerInput m_Wrapper;
@@ -348,6 +370,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Steering => m_Wrapper.m_Racing_Steering;
         public InputAction @PowerDrift => m_Wrapper.m_Racing_PowerDrift;
         public InputAction @MoveCamera => m_Wrapper.m_Racing_MoveCamera;
+        public InputAction @Reverse => m_Wrapper.m_Racing_Reverse;
         public InputActionMap Get() { return m_Wrapper.m_Racing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -372,6 +395,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MoveCamera.started += instance.OnMoveCamera;
             @MoveCamera.performed += instance.OnMoveCamera;
             @MoveCamera.canceled += instance.OnMoveCamera;
+            @Reverse.started += instance.OnReverse;
+            @Reverse.performed += instance.OnReverse;
+            @Reverse.canceled += instance.OnReverse;
         }
 
         private void UnregisterCallbacks(IRacingActions instance)
@@ -391,6 +417,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MoveCamera.started -= instance.OnMoveCamera;
             @MoveCamera.performed -= instance.OnMoveCamera;
             @MoveCamera.canceled -= instance.OnMoveCamera;
+            @Reverse.started -= instance.OnReverse;
+            @Reverse.performed -= instance.OnReverse;
+            @Reverse.canceled -= instance.OnReverse;
         }
 
         public void RemoveCallbacks(IRacingActions instance)
@@ -531,6 +560,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnSteering(InputAction.CallbackContext context);
         void OnPowerDrift(InputAction.CallbackContext context);
         void OnMoveCamera(InputAction.CallbackContext context);
+        void OnReverse(InputAction.CallbackContext context);
     }
     public interface IRadioActions
     {

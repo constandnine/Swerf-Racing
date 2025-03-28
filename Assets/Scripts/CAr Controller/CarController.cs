@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.Interactions;
 
 public class CarController : MonoBehaviour
 {
@@ -13,19 +14,28 @@ public class CarController : MonoBehaviour
     [Header("Driving And Steering")]
 
     [SerializeField] private float maximalTorque;
+    [SerializeField] private float reverseTorque;
+    [SerializeField] private float brakeTorque;
+    [SerializeField] private float deceleration;
+
     [SerializeField] private float maximalSteerAngle;
     [SerializeField] private float targetSteerAngle;
 
     [SerializeField] private float topSpeed;
     
     private float currentSpeed;
-    private float speedInKmph;
+    private float _speedInKmph;
+    public float speedInKmph { get { return _speedInKmph; } set { _speedInKmph = value; } }
 
-    private float accelerationValue;
-    private float brakeValue;
+    private float _accelerationValue;
+    public float accelerationValue { get { return _accelerationValue; } set { _accelerationValue = value; } }
+    private float _brakeValue;
+    public float brakeValue { get { return _brakeValue; } set { _brakeValue = value; } }
     private float steeringValue;
 
     private Rigidbody carRigidbody;
+
+    private bool reversing;
 
 
     [Header("Drifting")]
@@ -52,6 +62,7 @@ public class CarController : MonoBehaviour
     [Header("UI")]
 
     [SerializeField] private TMP_Text speedometerText;
+    [SerializeField] private TMP_Text reverseText;
 
     [SerializeField] private Slider accelerationSlider;
 
@@ -92,6 +103,7 @@ public class CarController : MonoBehaviour
 
 
         Acceleration();
+        Decelarate();
         Brake();
         Steering();
         Drift();
@@ -104,10 +116,10 @@ public class CarController : MonoBehaviour
 
     public void CalculateAccelerationValue(InputAction.CallbackContext context)
     {
-        accelerationValue = context.ReadValue<float>();
+            accelerationValue = context.ReadValue<float>();
 
 
-        accelerationSlider.value = accelerationValue;
+            accelerationSlider.value = accelerationValue;
     }
 
 
@@ -120,6 +132,27 @@ public class CarController : MonoBehaviour
     public void CalculateSteeringValue(InputAction.CallbackContext context)
     {
         steeringValue = context.ReadValue<Vector2>().x;
+    }
+
+
+
+    public void OnReverse(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            reverseText.enabled = true;
+
+
+            reversing = true;
+        }
+
+        else if (context.canceled)
+        {
+            reverseText.enabled = false;
+
+
+            reversing = false;
+        }
     }
 
 
@@ -141,9 +174,41 @@ public class CarController : MonoBehaviour
 
     private void Acceleration()
     {
-        for (int i = 0; i < rearWheelColliders.Length; i++)
+        if (!reversing)
         {
-            rearWheelColliders[i].motorTorque = accelerationValue * maximalTorque;
+            for (int i = 0; i < rearWheelColliders.Length; i++)
+            {
+                rearWheelColliders[i].motorTorque = accelerationValue * maximalTorque;
+            }
+        }
+
+        else if (reversing && speedInKmph < 25)
+        {
+            for (int i = 0; i < rearWheelColliders.Length; i++)
+            {
+                rearWheelColliders[i].motorTorque = accelerationValue * reverseTorque;
+
+                break;
+            }
+        }
+    }
+
+
+    private void Decelarate()
+    {
+        if (accelerationValue == 0 && carRigidbody.velocity.magnitude > 5 ) 
+        {
+            carRigidbody.drag = .2f;
+        }
+         
+        else if(accelerationValue == 0)
+        {
+            carRigidbody.drag = .1f;
+        }
+
+        if (accelerationValue != 0)
+        {
+            carRigidbody.drag = .05f;
         }
     }
 
@@ -152,12 +217,12 @@ public class CarController : MonoBehaviour
     {
         for (int i = 0; i < rearWheelColliders.Length; i++)
         {
-            rearWheelColliders[i].brakeTorque = brakeValue * maximalTorque;
+            rearWheelColliders[i].brakeTorque = brakeValue * brakeTorque;
         }
 
         for (int i = 0; i < frontWheelColliders.Length; i++)
         {
-            frontWheelColliders[i].brakeTorque = brakeValue * maximalTorque;
+            frontWheelColliders[i].brakeTorque = brakeValue * brakeTorque;
         }
     }
 
@@ -231,11 +296,4 @@ public class CarController : MonoBehaviour
             transforms[i].rotation = rotation;
         }
     }
-
-
-    private void CameraFOV()
-    {
-
-    }
-
 }
