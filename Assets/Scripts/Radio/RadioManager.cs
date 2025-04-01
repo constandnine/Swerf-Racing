@@ -22,6 +22,9 @@ public class RadioManager : MonoBehaviour
     private void Awake()
     {
         playerInput = new PlayerInput();
+
+
+        PlayNextSong();
     }
 
 

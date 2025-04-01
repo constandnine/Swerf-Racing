@@ -38,16 +38,36 @@ public class CarController : MonoBehaviour
     private bool reversing;
 
 
+    [Header("Engine Sounds")]
+
+    [SerializeField] private float minimalPitch;
+    [SerializeField] private float maximalPitch;
+    [SerializeField] private float increasePitchAmount;
+
+    [SerializeField] private AudioSource engineRunningSound;
+    [SerializeField] private AudioSource breakingsound;
+
+
     [Header("Drifting")]
 
     [SerializeField] private float slide;
+    [SerializeField] private float regainGrip;
+    [SerializeField] private float slipThreshold;
 
-    public float deafaltGrip;
+    public float sidewaysSlip;
 
-    public WheelFrictionCurve startGrip;
-    public WheelFrictionCurve rearGrip;
+    [SerializeField] private float driftTorgue;
+    [SerializeField] private float driftPower;
+
+    private WheelFrictionCurve startGrip;
+    private WheelFrictionCurve rearGrip;
 
     private bool drifting;
+
+    [SerializeField] private ParticleSystem[] tyreSmoke;
+    [SerializeField] private TrailRenderer[] skidMarks;
+
+    [SerializeField] private AudioSource skidSound;
 
 
     [Header("Wheels")]
@@ -77,10 +97,8 @@ public class CarController : MonoBehaviour
 
         for (int i = 0; i < rearWheelColliders.Length; i++)
         {
-            deafaltGrip = rearWheelColliders[i].sidewaysFriction.stiffness;
-
             startGrip = rearWheelColliders[i].sidewaysFriction;
-            rearGrip = frontWheelColliders[i].sidewaysFriction;
+            rearGrip = rearWheelColliders[i].sidewaysFriction;
         }
 
     }
@@ -107,6 +125,7 @@ public class CarController : MonoBehaviour
         Brake();
         Steering();
         Drift();
+        EngineSounds();
 
 
         UpdateWheels(frontWheelColliders, frontWheelTransforms);
@@ -229,7 +248,7 @@ public class CarController : MonoBehaviour
 
     private void Steering()
     {
-        targetSteerAngle = maximalSteerAngle * steeringValue;
+        targetSteerAngle =  maximalSteerAngle * steeringValue;
 
 
         for (int i = 0; i < frontWheelColliders.Length; i++)
@@ -239,25 +258,143 @@ public class CarController : MonoBehaviour
     }
 
 
-    private void Drift()
+    private void EngineSounds()
     {
-        if (drifting)
+        float accelerationPitch = accelerationValue * increasePitchAmount;
+        float brakePitch = brakeValue * increasePitchAmount;
+
+
+        if (engineRunningSound.pitch < maximalPitch && accelerationValue != 0)
         {
-            rearGrip.stiffness = deafaltGrip * slide;
+            engineRunningSound.pitch += accelerationPitch * Time.deltaTime;
+        }
 
-
-            for (int i = 0; i < rearWheelColliders.Length; i++)
-            {
-                rearWheelColliders[i].sidewaysFriction = rearGrip;
-            }
+        else if (engineRunningSound.pitch > minimalPitch && accelerationValue == 0)
+        {
+            engineRunningSound.pitch -= .1f * Time.deltaTime;
         }
 
 
+        if (brakeValue != 0)
+        {
+            breakingsound.pitch += brakePitch * Time.deltaTime;
+
+            engineRunningSound.pitch -= brakePitch * Time.deltaTime;
+
+
+            if (!breakingsound.isPlaying)
+            {
+                breakingsound.Play();
+            }
+
+        }
+
         else
         {
-            for (int i = 0; i < rearWheelColliders.Length; i++)
+            if (breakingsound.isPlaying)
             {
-                rearWheelColliders[i].sidewaysFriction = startGrip;
+                breakingsound.Stop();
+            }
+
+        }
+
+        if (!engineRunningSound.isPlaying)
+        {
+            engineRunningSound.Play();
+        }
+       
+    
+    }
+
+
+    private void Drift()
+    {
+        WheelHit wheelHit;
+
+        for (int i = 0; i < rearWheelColliders.Length; i++)
+        {
+
+            if (drifting)
+            {
+                rearGrip.extremumSlip = slide;
+
+               
+                rearWheelColliders[i].sidewaysFriction = rearGrip;
+
+
+                rearWheelColliders[i].brakeTorque = driftTorgue;
+                              
+
+                carRigidbody.AddForce(transform.forward * driftPower);
+            }
+
+
+            else 
+            {
+                if(rearGrip.extremumSlip > startGrip.extremumSlip)
+                {
+                    rearGrip.extremumSlip -= regainGrip;
+
+                    
+                    rearWheelColliders[i].sidewaysFriction = rearGrip;
+                }
+            }
+
+
+            if (rearWheelColliders[i].GetGroundHit(out wheelHit))
+            {
+                sidewaysSlip = Mathf.Abs(wheelHit.sidewaysSlip);
+            }
+
+            else
+            {
+                for (int vfxCount = 0; vfxCount < 4; vfxCount++)
+                {
+                    tyreSmoke[vfxCount].Stop();
+
+
+                    skidMarks[vfxCount].emitting = false;
+                }
+            }
+
+
+            for (int vfxCount = 0; vfxCount < 4; vfxCount++)
+            {
+                if (sidewaysSlip > slipThreshold)
+                {
+                    tyreSmoke[vfxCount].Play();
+                    
+                    
+                    skidMarks[vfxCount].emitting = true;
+                }
+
+                else
+                {
+                    tyreSmoke[vfxCount].Stop();
+                    
+                    
+                    skidMarks[vfxCount].emitting = false;
+                }
+            }
+
+
+            skidSound.volume = sidewaysSlip;
+
+
+            if (sidewaysSlip > slipThreshold)
+            {
+                if (!skidSound.isPlaying)
+                {
+                    skidSound.Play();
+                }
+            }
+
+            else if(sidewaysSlip < slipThreshold)
+            {
+                if (skidSound.isPlaying)
+                {
+                    skidSound.Stop();
+                }
             }
         }
     }
@@ -282,7 +419,6 @@ public class CarController : MonoBehaviour
 
         speedometerText.text = displaySpeed.ToString("000") + "/KMH";
     }
-
 
     private void UpdateWheels(WheelCollider[] colliders, Transform[] transforms)
     {

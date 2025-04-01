@@ -8,6 +8,6 @@ public class RadioStations : ScriptableObject
 {
     [Header("songs")]
 
-    private AudioClip[] _songs;
+    [SerializeField] private AudioClip[] _songs;
     public AudioClip[] songs { get{ return _songs; } set{ _songs = value; } }
 }
