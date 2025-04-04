@@ -182,25 +182,7 @@
             "id": "04669d72-36ac-4352-9a1e-be48a47a77dd",
             "actions": [
                 {
-                    "name": "MoveLeft",
-                    "type": "Button",
-                    "id": "d25d8b3b-e420-42e6-b4bd-fa3bff613ca8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MoveRIght",
-                    "type": "Button",
-                    "id": "2c6ae31d-98e7-405e-b083-a1094d7a4a03",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Back",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "717fbbcc-8b60-4ac2-b63d-d49ddc5eca85",
                     "expectedControlType": "",
@@ -212,34 +194,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "a483eb96-b488-46d2-93ae-59deaf247a36",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a4afe131-a5ce-4fce-9f9a-5643f87c3022",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveRIght",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f64c9ed2-2671-4b91-9ef1-11f363e06bc7",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Back",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

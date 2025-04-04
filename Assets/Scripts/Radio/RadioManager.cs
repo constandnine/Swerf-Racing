@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class RadioManager : MonoBehaviour
 {
@@ -17,6 +18,15 @@ public class RadioManager : MonoBehaviour
     private int stationIndex;
     private int lastSongIndex;
     private int SongIndex;
+
+
+    [Header("UI")]
+
+    [SerializeField] private TextMeshProUGUI stationName;
+
+    [SerializeField] private float fadeOutSpeed;
+
+    private Color stationNameColor;
 
 
     private void Awake()
@@ -49,6 +59,8 @@ public class RadioManager : MonoBehaviour
 
             ChangeStation();
 
+
+            ShowStationName();
         }
     }
 
@@ -61,13 +73,35 @@ public class RadioManager : MonoBehaviour
 
 
             ChangeStation();
+
+
+            ShowStationName();
         }
     }
 
 
-    private void Update()
+    private void ShowStationName()
     {
-        
+        stationName.enabled = true;
+
+
+        stationName.text = radioStations[stationIndex].name;
+
+
+        stationNameColor.a -= fadeOutSpeed * Time.deltaTime;
+
+
+        stationNameColor.a = Mathf.Clamp01(stationNameColor.a);
+
+
+        stationName.color = stationNameColor;
+
+
+        if (stationNameColor.a > .1f)
+        {
+            stationNameColor.a = 1;
+            stationName.enabled = false;
+        }
     }
 
 

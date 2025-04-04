@@ -204,25 +204,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""04669d72-36ac-4352-9a1e-be48a47a77dd"",
             ""actions"": [
                 {
-                    ""name"": ""MoveLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""d25d8b3b-e420-42e6-b4bd-fa3bff613ca8"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MoveRIght"",
-                    ""type"": ""Button"",
-                    ""id"": ""2c6ae31d-98e7-405e-b083-a1094d7a4a03"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Back"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""717fbbcc-8b60-4ac2-b63d-d49ddc5eca85"",
                     ""expectedControlType"": """",
@@ -234,34 +216,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""a483eb96-b488-46d2-93ae-59deaf247a36"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a4afe131-a5ce-4fce-9f9a-5643f87c3022"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MoveRIght"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""f64c9ed2-2671-4b91-9ef1-11f363e06bc7"",
-                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Back"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -284,9 +244,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Radio_PreviusStation = m_Radio.FindAction("Previus Station", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_MoveLeft = m_UI.FindAction("MoveLeft", throwIfNotFound: true);
-        m_UI_MoveRIght = m_UI.FindAction("MoveRIght", throwIfNotFound: true);
-        m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
+        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -495,16 +453,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_MoveLeft;
-    private readonly InputAction m_UI_MoveRIght;
-    private readonly InputAction m_UI_Back;
+    private readonly InputAction m_UI_Pause;
     public struct UIActions
     {
         private @PlayerInput m_Wrapper;
         public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MoveLeft => m_Wrapper.m_UI_MoveLeft;
-        public InputAction @MoveRIght => m_Wrapper.m_UI_MoveRIght;
-        public InputAction @Back => m_Wrapper.m_UI_Back;
+        public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -514,28 +468,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-            @MoveLeft.started += instance.OnMoveLeft;
-            @MoveLeft.performed += instance.OnMoveLeft;
-            @MoveLeft.canceled += instance.OnMoveLeft;
-            @MoveRIght.started += instance.OnMoveRIght;
-            @MoveRIght.performed += instance.OnMoveRIght;
-            @MoveRIght.canceled += instance.OnMoveRIght;
-            @Back.started += instance.OnBack;
-            @Back.performed += instance.OnBack;
-            @Back.canceled += instance.OnBack;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
         {
-            @MoveLeft.started -= instance.OnMoveLeft;
-            @MoveLeft.performed -= instance.OnMoveLeft;
-            @MoveLeft.canceled -= instance.OnMoveLeft;
-            @MoveRIght.started -= instance.OnMoveRIght;
-            @MoveRIght.performed -= instance.OnMoveRIght;
-            @MoveRIght.canceled -= instance.OnMoveRIght;
-            @Back.started -= instance.OnBack;
-            @Back.performed -= instance.OnBack;
-            @Back.canceled -= instance.OnBack;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -569,8 +511,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     }
     public interface IUIActions
     {
-        void OnMoveLeft(InputAction.CallbackContext context);
-        void OnMoveRIght(InputAction.CallbackContext context);
-        void OnBack(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

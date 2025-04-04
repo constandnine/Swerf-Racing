@@ -6,8 +6,13 @@ using UnityEngine;
 
 public class RadioStations : ScriptableObject
 {
-    [Header("songs")]
+    [Header("Songs")]
 
     [SerializeField] private AudioClip[] _songs;
     public AudioClip[] songs { get{ return _songs; } set{ _songs = value; } }
+
+    [Header("Name")]
+
+    [SerializeField] private string _name;
+    public string name { get { return _name; } set { _name = value; } }
 }

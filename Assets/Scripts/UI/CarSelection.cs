@@ -1,58 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CarSelection : MonoBehaviour
 {
-    [Header("Input")]
-
-    private PlayerInput playerInput;
-
-
-    [Header("Car Selection")]
-
-    [SerializeField] private Canvas[] carSelectCanvas;
-
-    public int canvasIndex;
+    [SerializeField] private  GameObject[] cars;
+    private int selectedCarIndex = 0;
 
 
-    private void Awake()
+    public void CarSelect(int carIndex)
     {
-        playerInput = new PlayerInput();
-    }
-
-
-    public void MoveToNextCanvas(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            canvasIndex++;
-
-            ManageCanvasSwap();
-
-        }
-    }
-
-
-    public void MoveToPreviusCanvas(InputAction.CallbackContext context)
-    {
-        if (context.performed && canvasIndex > 0)
-        {
-            canvasIndex --;
-
-
-            ManageCanvasSwap();
-        }
-    }
-
-
-    public void ManageCanvasSwap()
-    {
-        if (canvasIndex >= carSelectCanvas.Length)
-        {
-            canvasIndex = 0;
-        }
-
-
-        carSelectCanvas[canvasIndex].enabled = true;
+        selectedCarIndex = carIndex;
+        PlayerPrefs.SetInt("SelectedCarIndex", selectedCarIndex);
+        PlayerPrefs.Save();
     }
 }
