@@ -10,14 +10,26 @@ public class QuitAndPlay : MonoBehaviour
     [SerializeField] private int sceneIndex;
 
 
-    public void OnSceneSwitch()
+    public void OnSceneSwitch(GameObject loadingscreen)
     {
-        SceneManager.LoadScene(sceneIndex);
+        loadingscreen.SetActive(true);
+
+
+        StartCoroutine(Loading());
     }
 
 
     public void OnQuit()
     {
         Application.Quit();
+    }
+
+
+    private IEnumerator Loading()
+    {
+        yield return new WaitForSeconds(2);
+
+
+        SceneManager.LoadScene(sceneIndex);
     }
 }
