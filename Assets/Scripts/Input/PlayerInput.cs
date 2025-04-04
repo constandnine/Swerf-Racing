@@ -80,6 +80,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next Station"",
+                    ""type"": ""Button"",
+                    ""id"": ""39fa708b-e15c-4018-bcf8-ef439a19f959"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previus Station"",
+                    ""type"": ""Button"",
+                    ""id"": ""56122eb7-a00a-406c-8d2c-1ca731f94989"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3bc87fd-0843-4040-a6c7-7dcb18696357"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -148,36 +175,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Reverse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Radio"",
-            ""id"": ""c6e676de-0c3b-4f5c-bf31-073f01c93623"",
-            ""actions"": [
-                {
-                    ""name"": ""Next Station"",
-                    ""type"": ""Button"",
-                    ""id"": ""c361516d-af5b-443d-ac67-24f453fb27ca"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Previus Station"",
-                    ""type"": ""Button"",
-                    ""id"": ""a4f97e66-ffff-475f-9627-dcdd426374ee"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
                     ""name"": """",
-                    ""id"": ""3dc967d1-0d71-4da9-9b88-cbff5f00dd64"",
+                    ""id"": ""01e81275-ae3e-46dc-8731-37701b3203ac"",
                     ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -188,7 +189,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1ad7a6df-1b3c-4cba-a5c0-925f20164980"",
+                    ""id"": ""c06a592c-94a1-43db-a8ac-e0d56a112894"",
                     ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -196,27 +197,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Previus Station"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""UI"",
-            ""id"": ""04669d72-36ac-4352-9a1e-be48a47a77dd"",
-            ""actions"": [
-                {
-                    ""name"": ""Pause"",
-                    ""type"": ""Button"",
-                    ""id"": ""717fbbcc-8b60-4ac2-b63d-d49ddc5eca85"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""f64c9ed2-2671-4b91-9ef1-11f363e06bc7"",
+                    ""id"": ""b62761bf-06a5-44b6-bfb7-27316b9c2c18"",
                     ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -238,20 +222,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Racing_PowerDrift = m_Racing.FindAction("PowerDrift", throwIfNotFound: true);
         m_Racing_MoveCamera = m_Racing.FindAction("MoveCamera", throwIfNotFound: true);
         m_Racing_Reverse = m_Racing.FindAction("Reverse", throwIfNotFound: true);
-        // Radio
-        m_Radio = asset.FindActionMap("Radio", throwIfNotFound: true);
-        m_Radio_NextStation = m_Radio.FindAction("Next Station", throwIfNotFound: true);
-        m_Radio_PreviusStation = m_Radio.FindAction("Previus Station", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_Racing_NextStation = m_Racing.FindAction("Next Station", throwIfNotFound: true);
+        m_Racing_PreviusStation = m_Racing.FindAction("Previus Station", throwIfNotFound: true);
+        m_Racing_Pause = m_Racing.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_Racing.enabled, "This will cause a leak and performance issues, PlayerInput.Racing.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Radio.enabled, "This will cause a leak and performance issues, PlayerInput.Radio.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput.UI.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -319,6 +297,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Racing_PowerDrift;
     private readonly InputAction m_Racing_MoveCamera;
     private readonly InputAction m_Racing_Reverse;
+    private readonly InputAction m_Racing_NextStation;
+    private readonly InputAction m_Racing_PreviusStation;
+    private readonly InputAction m_Racing_Pause;
     public struct RacingActions
     {
         private @PlayerInput m_Wrapper;
@@ -329,6 +310,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @PowerDrift => m_Wrapper.m_Racing_PowerDrift;
         public InputAction @MoveCamera => m_Wrapper.m_Racing_MoveCamera;
         public InputAction @Reverse => m_Wrapper.m_Racing_Reverse;
+        public InputAction @NextStation => m_Wrapper.m_Racing_NextStation;
+        public InputAction @PreviusStation => m_Wrapper.m_Racing_PreviusStation;
+        public InputAction @Pause => m_Wrapper.m_Racing_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Racing; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -356,6 +340,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reverse.started += instance.OnReverse;
             @Reverse.performed += instance.OnReverse;
             @Reverse.canceled += instance.OnReverse;
+            @NextStation.started += instance.OnNextStation;
+            @NextStation.performed += instance.OnNextStation;
+            @NextStation.canceled += instance.OnNextStation;
+            @PreviusStation.started += instance.OnPreviusStation;
+            @PreviusStation.performed += instance.OnPreviusStation;
+            @PreviusStation.canceled += instance.OnPreviusStation;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IRacingActions instance)
@@ -378,6 +371,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Reverse.started -= instance.OnReverse;
             @Reverse.performed -= instance.OnReverse;
             @Reverse.canceled -= instance.OnReverse;
+            @NextStation.started -= instance.OnNextStation;
+            @NextStation.performed -= instance.OnNextStation;
+            @NextStation.canceled -= instance.OnNextStation;
+            @PreviusStation.started -= instance.OnPreviusStation;
+            @PreviusStation.performed -= instance.OnPreviusStation;
+            @PreviusStation.canceled -= instance.OnPreviusStation;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IRacingActions instance)
@@ -395,106 +397,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public RacingActions @Racing => new RacingActions(this);
-
-    // Radio
-    private readonly InputActionMap m_Radio;
-    private List<IRadioActions> m_RadioActionsCallbackInterfaces = new List<IRadioActions>();
-    private readonly InputAction m_Radio_NextStation;
-    private readonly InputAction m_Radio_PreviusStation;
-    public struct RadioActions
-    {
-        private @PlayerInput m_Wrapper;
-        public RadioActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @NextStation => m_Wrapper.m_Radio_NextStation;
-        public InputAction @PreviusStation => m_Wrapper.m_Radio_PreviusStation;
-        public InputActionMap Get() { return m_Wrapper.m_Radio; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(RadioActions set) { return set.Get(); }
-        public void AddCallbacks(IRadioActions instance)
-        {
-            if (instance == null || m_Wrapper.m_RadioActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_RadioActionsCallbackInterfaces.Add(instance);
-            @NextStation.started += instance.OnNextStation;
-            @NextStation.performed += instance.OnNextStation;
-            @NextStation.canceled += instance.OnNextStation;
-            @PreviusStation.started += instance.OnPreviusStation;
-            @PreviusStation.performed += instance.OnPreviusStation;
-            @PreviusStation.canceled += instance.OnPreviusStation;
-        }
-
-        private void UnregisterCallbacks(IRadioActions instance)
-        {
-            @NextStation.started -= instance.OnNextStation;
-            @NextStation.performed -= instance.OnNextStation;
-            @NextStation.canceled -= instance.OnNextStation;
-            @PreviusStation.started -= instance.OnPreviusStation;
-            @PreviusStation.performed -= instance.OnPreviusStation;
-            @PreviusStation.canceled -= instance.OnPreviusStation;
-        }
-
-        public void RemoveCallbacks(IRadioActions instance)
-        {
-            if (m_Wrapper.m_RadioActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IRadioActions instance)
-        {
-            foreach (var item in m_Wrapper.m_RadioActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_RadioActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public RadioActions @Radio => new RadioActions(this);
-
-    // UI
-    private readonly InputActionMap m_UI;
-    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_Pause;
-    public struct UIActions
-    {
-        private @PlayerInput m_Wrapper;
-        public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Pause => m_Wrapper.m_UI_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-        public void AddCallbacks(IUIActions instance)
-        {
-            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-        }
-
-        private void UnregisterCallbacks(IUIActions instance)
-        {
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-        }
-
-        public void RemoveCallbacks(IUIActions instance)
-        {
-            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IUIActions instance)
-        {
-            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public UIActions @UI => new UIActions(this);
     public interface IRacingActions
     {
         void OnAccelarator(InputAction.CallbackContext context);
@@ -503,14 +405,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnPowerDrift(InputAction.CallbackContext context);
         void OnMoveCamera(InputAction.CallbackContext context);
         void OnReverse(InputAction.CallbackContext context);
-    }
-    public interface IRadioActions
-    {
         void OnNextStation(InputAction.CallbackContext context);
         void OnPreviusStation(InputAction.CallbackContext context);
-    }
-    public interface IUIActions
-    {
         void OnPause(InputAction.CallbackContext context);
     }
 }

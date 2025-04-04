@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3364dae3bb3e7a04d9b48f2af68a7599, type: 3}
   m_Name: Neon Pulse Radio
   m_EditorClassIdentifier: 
-  _songs: []
+  _songs:
+  - {fileID: 8300000, guid: 373b8d58141289843abb0d787cc23f46, type: 3}
+  - {fileID: 8300000, guid: b85db6bfb8f7d6c4094f11afe6249ddb, type: 3}
+  - {fileID: 8300000, guid: 4b2f67d222a5f0042986fdb63e24eba0, type: 3}
+  - {fileID: 8300000, guid: 965d900150bc7ae41b6fbad6070ed778, type: 3}
+  - {fileID: 8300000, guid: 7d85864b531bfce46a373ced3a50986b, type: 3}
   _name: Neon Pulse Radio

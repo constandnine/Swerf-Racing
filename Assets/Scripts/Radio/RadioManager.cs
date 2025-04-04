@@ -15,7 +15,7 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private RadioStations[] radioStations;
     [SerializeField] private AudioSource stationSong;
 
-    private int stationIndex;
+    public int stationIndex;
     private int lastSongIndex;
     private int SongIndex;
 
@@ -47,6 +47,12 @@ public class RadioManager : MonoBehaviour
     private void OnDisable()
     {
         playerInput.Disable();
+    }
+
+
+    private void Start()
+    {
+        ShowStationName();
     }
 
 
@@ -82,22 +88,10 @@ public class RadioManager : MonoBehaviour
 
     private void ShowStationName()
     {
-        stationName.enabled = true;
+        StartCoroutine(StationChanged());
 
 
-        stationName.text = radioStations[stationIndex].name;
-
-
-        stationNameColor.a -= fadeOutSpeed * Time.deltaTime;
-
-
-        stationNameColor.a = Mathf.Clamp01(stationNameColor.a);
-
-
-        stationName.color = stationNameColor;
-
-
-        if (stationNameColor.a > .1f)
+        if (stationNameColor.a < .1f)
         {
             stationNameColor.a = 1;
             stationName.enabled = false;
@@ -136,5 +130,25 @@ public class RadioManager : MonoBehaviour
 
 
         PlayNextSong();
+    }
+
+    private IEnumerator StationChanged()
+    {
+        stationName.enabled = true;
+
+
+        stationName.text = radioStations[stationIndex].name;
+
+
+        stationNameColor.a -= fadeOutSpeed * Time.deltaTime;
+
+
+        stationNameColor.a = Mathf.Clamp01(stationNameColor.a);
+
+
+        stationName.color = stationNameColor;
+
+
+        yield return new WaitForSeconds(2);
     }
 }

@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3364dae3bb3e7a04d9b48f2af68a7599, type: 3}
   m_Name: Cloudwave FM
   m_EditorClassIdentifier: 
-  _songs: []
+  _songs:
+  - {fileID: 8300000, guid: bd22f2fccf700f444af90c7fc293f5ae, type: 3}
+  - {fileID: 8300000, guid: 5212490267bc28c4c823c254db00d452, type: 3}
+  - {fileID: 8300000, guid: bf8f4a7384285454db2048984c9c1439, type: 3}
+  - {fileID: 8300000, guid: e545d86c8d465954091341bb730a189f, type: 3}
+  - {fileID: 8300000, guid: 217d1c12095e7964cb9d7d733d9241ed, type: 3}
   _name: Cloudwave FM

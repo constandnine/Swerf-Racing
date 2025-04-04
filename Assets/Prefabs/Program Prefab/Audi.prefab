@@ -10349,7 +10349,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2ccc70ac02a2d684683c13cfee4cd1cd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 0.8
   Loop: 1
   Mute: 0
@@ -10479,11 +10479,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radioStations:
-  - {fileID: 11400000, guid: 8d2d39045aec76b479716de17774f8cf, type: 2}
+  - {fileID: 11400000, guid: 70d8b928a3a17e549b20976a1c60576c, type: 2}
   - {fileID: 11400000, guid: 916d7d601d8aa844fa47c07091d427e7, type: 2}
+  - {fileID: 11400000, guid: 90685682c8deec3468500febe71171c8, type: 2}
+  - {fileID: 11400000, guid: 8d2d39045aec76b479716de17774f8cf, type: 2}
+  - {fileID: 11400000, guid: 79804de2ab449114989c7310c89a620f, type: 2}
   stationSong: {fileID: 379591635426882892}
-  stationName: {fileID: 0}
-  fadeOutSpeed: 0
+  stationIndex: 0
+  stationName: {fileID: 5974565813555421556}
+  fadeOutSpeed: 0.1
 --- !u!82 &379591635426882892
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10496,7 +10500,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -26740,7 +26744,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: be54a367cced9ef42924b1644a2462a7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.3
   m_Pitch: 0.5
   Loop: 1
   Mute: 0
@@ -27188,40 +27192,52 @@ MonoBehaviour:
     m_ActionName: Racing/MoveCamera[/XInputControllerWindows/rightStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2124446138262089517}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 6202010425390821574}
+        m_TargetAssemblyTypeName: CarController, Assembly-CSharp
+        m_MethodName: OnReverse
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: c361516d-af5b-443d-ac67-24f453fb27ca
-    m_ActionName: Radio/Next Station[/XInputControllerWindows/dpad/right]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2124446138262089517}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a4f97e66-ffff-475f-9627-dcdd426374ee
-    m_ActionName: Radio/Previus Station[/XInputControllerWindows/dpad/left]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: f2563bce-f5d6-4128-bc98-829e91a10744
     m_ActionName: Racing/Reverse
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2885302911683052317}
+        m_TargetAssemblyTypeName: RadioManager, Assembly-CSharp
+        m_MethodName: ONNextstation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 39fa708b-e15c-4018-bcf8-ef439a19f959
+    m_ActionName: Racing/Next Station[/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2885302911683052317}
+        m_TargetAssemblyTypeName: RadioManager, Assembly-CSharp
+        m_MethodName: ONPreviusstation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 56122eb7-a00a-406c-8d2c-1ca731f94989
+    m_ActionName: Racing/Previus Station[/XInputControllerWindows/dpad/left]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2262223323700360209}
@@ -27236,8 +27252,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 717fbbcc-8b60-4ac2-b63d-d49ddc5eca85
-    m_ActionName: UI/Back
+    m_ActionId: c3bc87fd-0843-4040-a6c7-7dcb18696357
+    m_ActionName: Racing/Pause[/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Racing
@@ -27625,6 +27641,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6766545103112700341}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5974565813555421556 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1084931108360478913, guid: 206d82baeeb81b04b9f70b7e8267033d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6766545103112700341}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6997596164308002417 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4394365661259229124, guid: 206d82baeeb81b04b9f70b7e8267033d,

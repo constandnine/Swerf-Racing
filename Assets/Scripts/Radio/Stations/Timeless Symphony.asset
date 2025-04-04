@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3364dae3bb3e7a04d9b48f2af68a7599, type: 3}
   m_Name: Timeless Symphony
   m_EditorClassIdentifier: 
-  _songs: []
+  _songs:
+  - {fileID: 8300000, guid: 84a211a38c45fb44e9bd8a7c90b5f3d9, type: 3}
+  - {fileID: 8300000, guid: 1e1ab5f514088214fbb2d376b2fcc0e0, type: 3}
+  - {fileID: 8300000, guid: 5a00e7733ac90d4469b5483843429b54, type: 3}
+  - {fileID: 8300000, guid: 9355037dbbf1689458356096e24e82e1, type: 3}
+  - {fileID: 8300000, guid: 8ce6bf8f3d56b084ea51895e3af3d965, type: 3}
   _name: Timeless Symphony

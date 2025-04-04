@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: ThunderStruck FM
   m_EditorClassIdentifier: 
   _songs:
-  - {fileID: 8300000, guid: a85d0490a24d24d4282014bde549dc2a, type: 3}
-  - {fileID: 8300000, guid: 566d7222b0afd994888e4874f882b356, type: 3}
+  - {fileID: 8300000, guid: 383a1a9431035364da30d52f40cfe435, type: 3}
+  - {fileID: 8300000, guid: 620b58710243f99489ceecd15fb1720a, type: 3}
+  - {fileID: 8300000, guid: 4be2110e5c9a2334ea9cbef8e2b7ff1c, type: 3}
+  - {fileID: 8300000, guid: 0f41068445e011c4b90986895bd3eca6, type: 3}
+  - {fileID: 8300000, guid: 7d508657c1e98c949b15a2b5774514c0, type: 3}
   _name: ThunderStruck FM
