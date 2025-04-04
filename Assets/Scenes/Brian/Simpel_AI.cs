@@ -13,7 +13,6 @@ public class Simpel_AI : MonoBehaviour
     private Vector3[] waitpoints;                                   // Array of waypoints
     public int waypointIndex = 0;                                   // Current waypoint index
     private Rigidbody rb;                                           // Rigidbody component
-    private TextMeshProUGUI velocityText;                           // UI text for displaying velocity
     private int updateCounter;                                      // Counter for updates
     private RaceLineData line;                                      // Current race line data
     public RaceLineData nowLine;                                    // Reference to the current race line data
@@ -22,7 +21,6 @@ public class Simpel_AI : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();                             // Get Rigidbody component
-        velocityText = GetComponentInChildren<TextMeshProUGUI>();   // Get UI text component
         saveManager = GetComponent<SaveManager>();                  // Get SaveManager component
         waitpoints = GetWaypoints(waitpointsMain);                  // Get waypoints from parent object
 
@@ -39,10 +37,9 @@ public class Simpel_AI : MonoBehaviour
     void FixedUpdate()
     {
         UpdateAI();                                                 // Update AI behavior
-        velocityText.text = ((int)rb.velocity.magnitude).ToString();    // Update velocity display
         nextTo = DetectObstacles();                                 // Detect obstacles
 
-        if (++updateCounter >= 1)
+        if (++updateCounter >= 5)
         {                                                                                                 
             saveManager.SetCheckPoints(line);                       // Save checkpoints every two updates
             SetGround();

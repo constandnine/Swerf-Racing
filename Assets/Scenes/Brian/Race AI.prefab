@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7126562730670586617}
   - component: {fileID: 8850181271420968739}
-  - component: {fileID: 4032277238888451453}
-  - component: {fileID: 47469344431081391}
   - component: {fileID: 2292616093748005266}
   - component: {fileID: 573158505679986609}
   m_Layer: 31
@@ -72,38 +70,6 @@ MonoBehaviour:
   noiseSmoothRate: 1
   turnRate: 40
   nowLine: {fileID: 11400000, guid: 818d41cea25021a4ea66d39a38e3f87b, type: 2}
---- !u!114 &4032277238888451453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3542792194881572012}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b142036fe08441c40a191799179577cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randomRangeTurn: {x: 20, y: 20}
-  waitpointsMain: {fileID: 0}
-  rayDistance: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  waypointIndex: 0
-  nowLine: {fileID: 0}
---- !u!114 &47469344431081391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3542792194881572012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dae3499db00a39d43bd369ab25002657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &2292616093748005266
 Rigidbody:
   m_ObjectHideFlags: 0

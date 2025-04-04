@@ -4,24 +4,25 @@ using UnityEngine;
 public class Follower_AI : MonoBehaviour
 {
     #region Public Variables
-    public GameObject mainCar;              // Reference to the main car to compare position
-    public GameObject car;                  // The car controlled by this script
-    public Vector2 speedRange = new Vector2(0.6f, 1.8f); // Min and max speed multipliers
-    public Vector2 randomTurnRange = new Vector2(2, 6);  // Range for random turn speed (not used now)
-    public GameObject waypointsMain;        // Parent object containing waypoints
-    public float rayDistance = 10f;         // Distance for obstacle detection rays
-    public LayerMask layerMask;             // Layer mask for raycasts
-    public float distanceThreshold = 25f;   // Distance threshold for speed adjustment
-    public float aggressionFactor = 1.2f;   // Max aggression for initial speed variation
-    public float switchDistance = 10f;      // Distance to switch to next waypoint
-    public float offsetMagnitude = 5f;      // Magnitude of lateral offset
-    public float noiseScale = 0.1f;         // Scale of Perlin noise for path variation
-    public float overtakeDistance = 10f;    // Distance to initiate overtaking
-    public float criticalDistance = 5f;     // Distance for speed reduction when car is in front
-    public float overtakeBias = 0.5f;       // Bias for overtaking direction
-    public float speedAdjustmentRate = 2f;  // Rate at which speed adjusts to target
-    public float noiseSmoothRate = 5f;      // Rate at which noise value is smoothed
-    public float turnRate = 5f;             // Fixed turn rate for smoother rotation
+    public GameObject mainCar;                              // Reference to the main car to compare position
+    public GameObject car;                                  // The car controlled by this script
+    public Vector2 speedRange = new Vector2(0.6f, 1.8f);    // Min and max speed multipliers
+    public Vector2 randomTurnRange = new Vector2(2, 6);     // Range for random turn speed (not used now)
+    public GameObject waypointsMain;                        // Parent object containing waypoints
+    public float rayDistance = 10f;                         // Distance for obstacle detection rays
+    public LayerMask layerMask;                             // Layer mask for raycasts
+    public float distanceThreshold = 25f;                   // Distance threshold for speed adjustment
+    public float aggressionFactor = 1.2f;                   // Max aggression for initial speed variation
+    public float switchDistance = 10f;                      // Distance to switch to next waypoint
+    public float offsetMagnitude = 5f;                      // Magnitude of lateral offset
+    public float noiseScale = 0.1f;                         // Scale of Perlin noise for path variation
+    public float overtakeDistance = 10f;                    // Distance to initiate overtaking
+    public float criticalDistance = 5f;                     // Distance for speed reduction when car is in front
+    public float overtakeBias = 0.5f;                       // Bias for overtaking direction
+    public float speedAdjustmentRate = 2f;                  // Rate at which speed adjusts to target
+    public float noiseSmoothRate = 5f;                      // Rate at which noise value is smoothed
+    public float turnRate = 5f;                             // Fixed turn rate for smoother rotation
+    public RaceLineData nowLine;                            // Optional predefined race line
     #endregion
 
     #region Private Variables
@@ -30,7 +31,6 @@ public class Follower_AI : MonoBehaviour
     private Rigidbody rb;                   // Rigidbody component
     private int updateCounter;              // Counter for periodic updates
     private RaceLineData currentRaceLine;   // Current race line data
-    public RaceLineData nowLine;            // Optional predefined race line
     private SaveManager saveManager;        // Save manager component
     private Vector3 nextObstacle;           // Position of detected obstacle
     private float speedMultiplier = 1f;     // Current speed multiplier
@@ -75,7 +75,7 @@ public class Follower_AI : MonoBehaviour
     }
     #endregion
 
-    #region Physics Update
+    #region Update
     void FixedUpdate()
     {
         // Update target speed and smoothly adjust current speed
@@ -88,7 +88,7 @@ public class Follower_AI : MonoBehaviour
         // Periodic checkpoint saving
         if (++updateCounter >= 2)
         {
-            saveManager.SetCheckPoints(currentRaceLine);
+            //saveManager.SetCheckPoints(currentRaceLine);
             updateCounter = 0;
         }
 
@@ -226,7 +226,7 @@ public class Follower_AI : MonoBehaviour
         }
 
         // Apply movement force
-        float moveForce = 10000f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
+        float moveForce = 11000f * speedMultiplier * avoidanceMultiplier * Time.fixedDeltaTime * rb.mass;
         rb.AddForce(transform.forward * moveForce, ForceMode.Force);
 
         // Smoothly rotate towards the direction

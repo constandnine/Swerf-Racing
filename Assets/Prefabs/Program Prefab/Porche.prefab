@@ -11559,6 +11559,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd424092d21f72a4bbde5b5b9a99116d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 468949081405536650}
+  win: {fileID: 7849368437066316799}
+  lose: {fileID: 0}
 --- !u!1 &5557970952431376402
 GameObject:
   m_ObjectHideFlags: 0
@@ -27570,6 +27573,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7849368437066316799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2001111453784737680, guid: 206d82baeeb81b04b9f70b7e8267033d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8587220184283888751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8657497773141580974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1084931108360478913, guid: 206d82baeeb81b04b9f70b7e8267033d,
